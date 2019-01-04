@@ -1,0 +1,298 @@
+<!--- 
+Javascript shopping cart project (frontend)
+        by Ann Mai 
+
+Credits:
+*Delivery Truck and stars Icon by icons8.com
+*Location, US Flag, Heart Purse, Search icons by www.flaticon.com are licensed under Creative Commons 3.0.
+--->
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">  
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <title>Makeup Cart</title>
+        
+<!--------- styles ---------->
+        <link rel="stylesheet" href="style.css">
+        <link href="https://fonts.googleapis.com/css?family=Major+Mono+Display" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Codystar" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">        
+    </head>
+    
+    <body>
+        <header>         
+<!--------- very top bar --------->
+            <section class="header_container">
+                <div class="header_left">
+                    <p>Free 3 Day Shipping over $50</p>
+                </div>
+
+                <div class="header_right">
+                    <p><img class="header_icons" src="icons/united-states.png">US</p>    
+                    <p><img class="header_icons" src="icons/location.png">Find Store</p>
+                    <p><img class="header_icons" src="icons/truck.png">Track Order</p>
+                </div>
+            </section>
+            
+<!--------- header body --------->
+            <section class="header_body_container">
+                <div class="search_bar_container">
+                    <input class="search_bar" type="text" placeholder="Search">
+                    <button class="search_btn" type="submit"><img src="icons/search.png"></button>
+                </div>
+
+                <div><p id="title">Makeup</p></div>
+
+                <div class="greeting">
+                    <p id="hello_gorgeous">Hello, Gorgeous</p>
+                    <p id="login"><a href="">sign in</a> or <a href="">register</a></p>
+                </div>
+                
+                <div class="shopping_icons_container">
+                    <div class="shopping_icons">
+                        <img id="search_icon" src="icons/search_icon.png">
+                        <img id="heart" src="icons/heart.png">
+                        <div class="cart_container">
+                            <button class="shopping_cart_btn" type="button" onclick="toggleCartDisplay()"><img id="purse" src="icons/purse.png"></button>
+                            <div class="cart_content_bubble" style="display:none">
+                                Your shopping bag is empty.
+                                <div id="close_cart_btn" onclick="hideCart()">
+                                    <div id="close_cart_bar1"></div>
+                                    <div id="close_cart_bar2"></div>
+                                </div> 
+                            </div>
+							<div id="items_count" style="display:none"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                
+           
+            </section>
+            
+<!--------- Navigation Menu --------->
+            <nav class="navbar">
+                <ul>
+                    <li>shop</li>
+                    <li>brands</li>
+                    <li>sale</li>
+                </ul>
+            </nav>           
+        </header>
+        
+<!--------- border --------->
+        <div class="scallop"></div>
+        
+<!--------- filter and sort toggle --------->
+        <div class="container" onclick="toggle_filter(this)">
+            <div class="filter_bar1"></div>
+            <div class="filter_bar2"></div>
+        </div>
+
+        <div class="filter_and_sort">
+            <p id="filter">FILTER</p>
+            <p id="sort">SORT&nbsp;&nbsp;<i class="sort_arrow"></i></p> 
+            
+        </div>
+ 
+<!--------- MAIN / Products --------->
+        <main>    
+            <h2>Best Sellers</h2>
+            
+            <section class="product_section">
+                <div class="product" data-pid="1">
+                    <img class="wishlist_heart" src="icons/unlike.png" onclick="like(this)">
+                    <a href="">
+                        <img class="product_image" src="product_images/ud_naked_cherry.png">
+                        <h3 class="product_brand">Urban Decay</h3>
+                        <h4 class="product_name">Naked Cherry Eyeshadow Palette</h4>
+                        <h5 class="product_price">49.00</h5>
+                    </a>
+                    <span class="star">
+                        <img src="icons/star.png">
+                        <img src="icons/star.png">
+                        <img src="icons/star.png">
+                        <img src="icons/star.png">
+                        <img src="icons/star-half.png">
+                    </span><br>
+                    <button class="add_to_cart_btn" onclick="addToCart(this)">Add To Bag</button>
+                </div>
+                
+                <div class="product" data-pid="2">
+                    <img class="wishlist_heart" src="icons/unlike.png" onclick="like(this)">
+                    <a href="">
+                        <img class="product_image" src="product_images/papapeach.png">
+                        <h3 class="product_brand">Too Faced</h3>
+                        <h4 class="product_name">Sweet Peach Papa Don't Peach Blush</h4>
+                        <h5 class="product_price">39.00</h5>
+                    </a>
+                    <span class="star">
+                        <img src="icons/star.png">
+                        <img src="icons/star.png">
+                        <img src="icons/star.png">
+                        <img src="icons/star.png">
+                        <img src="icons/star-half.png">
+                    </span><br>
+                    <button class="add_to_cart_btn" onclick="addToCart(this)">Add To Bag</button>
+                </div>
+                
+                <div class="product" data-pid="3">
+                    <img class="wishlist_heart" src="icons/unlike.png" onclick="like(this)">
+                    <a href="">
+                        <img class="product_image" src="product_images/mufe.png">
+                        <h3 class="product_brand">Make Up For Ever</h3>
+                        <h4 class="product_name">Matte Velvet Skin Full Coverage Foundation</h4>
+                        <h5 class="product_price">38.00</h5>
+                    </a>
+                    <span class="star">
+                        <img src="icons/star.png">
+                        <img src="icons/star.png">
+                        <img src="icons/star.png">
+                        <img src="icons/star.png">
+                    </span><br>
+                    <button class="add_to_cart_btn" onclick="addToCart(this)">Add To Bag</button>
+                </div>
+                
+                <div class="product" data-pid="4">
+                    <img class="wishlist_heart" src="icons/unlike.png" onclick="like(this)">
+                    <a href="">
+                        <img class="product_image" src="product_images/ysllip.png">
+                        <h3 class="product_brand">Yves Saint Laurent</h3>
+                        <h4 class="product_name">Rogue Volupt&eacute; Shine Oil-in-Stick Lipstick</h4>
+                        <h5 class="product_price">38.00</h5>
+                    </a>
+                    <span class="star">
+                        <img src="icons/star.png">
+                        <img src="icons/star.png">
+                        <img src="icons/star.png">
+                        <img src="icons/star.png">
+                        <img src="icons/star-half.png">
+                    </span><br>
+                    <button class="add_to_cart_btn" onclick="addToCart(this)">Add To Bag</button>
+                </div>
+                
+                <div class="product" data-pid="5">
+                    <img class="wishlist_heart" src="icons/unlike.png" onclick="like(this)">
+                    <a href="">
+                        <img class="product_image" src="product_images/chaneleye.png">
+                        <h3 class="product_brand">Chanel</h3>
+                        <h4 class="product_name">D'Ombre Long Wear Luminous Eyeshadow</h4>
+                        <h5 class="product_price">36.00</h5>
+                    </a>
+                    <span class="star">
+                        <img src="icons/star.png">
+                        <img src="icons/star.png">
+                        <img src="icons/star.png">
+                        <img src="icons/star.png">
+                        <img src="icons/star-half.png">
+                    </span><br>
+                    <button class="add_to_cart_btn" onclick="addToCart(this)">Add To Bag</button>
+                </div>
+                
+                <div class="product" data-pid="6">
+                    <img class="wishlist_heart" src="icons/unlike.png" onclick="like(this)">
+                    <a href="">
+                        <img class="product_image" src="product_images/stilaliqeye.png">
+                        <h3 class="product_brand">Stila</h3>
+                        <h4 class="product_name">Shimmer  &amp; Glow Liquid Eyeshadow</h4>
+                        <h5 class="product_price">24.00</h5>
+                    </a>
+                    <span class="star">
+                        <img src="icons/star.png">
+                        <img src="icons/star.png">
+                        <img src="icons/star.png">
+                        <img src="icons/star.png">
+                        <img src="icons/star-half.png">
+                    </span><br>
+                    <button class="add_to_cart_btn" onclick="addToCart(this)">Add To Bag</button>
+                </div>
+                
+                <div class="product" data-pid="7">
+                    <img class="wishlist_heart" src="icons/unlike.png" onclick="like(this)">
+                    <a href="">
+                        <img class="product_image" src="product_images/dioreye.png">
+                        <h3 class="product_brand">Dior</h3>
+                        <h4 class="product_name">Backstage Glow &amp; Blush Face Palette</h4>
+                        <h5 class="product_price">45.00</h5>
+                    </a>
+                    <span class="star">
+                        <img src="icons/star.png">
+                        <img src="icons/star.png">
+                        <img src="icons/star.png">
+                        <img src="icons/star.png">
+                    </span><br>
+                    <button class="add_to_cart_btn" onclick="addToCart(this)">Add To Bag</button>
+                </div>
+                
+                <div class="product" data-pid="8">
+                    <img class="wishlist_heart" src="icons/unlike.png" onclick="like(this)">
+                    <a href="">
+                        <img class="product_image" src="product_images/kvdpowder.png">
+                        <h3 class="product_brand">Kat Von D</h3>
+                        <h4 class="product_name">Lock-It Translucent Setting Powder</h4>
+                        <h5 class="product_price">30.00</h5>
+                    </a>
+                    <span class="star">
+                        <img src="icons/star.png">
+                        <img src="icons/star.png">
+                        <img src="icons/star.png">
+                        <img src="icons/star.png">
+                        <img src="icons/star-half.png">
+                    </span><br>
+                    <button class="add_to_cart_btn" onclick="addToCart(this)">Add To Bag</button>
+                </div>       
+            </section>
+        </main>
+        
+ <!--------- footer --------->
+        <footer>
+            <div class="footer_container">
+                <div class="column">
+                    <h6>Information</h6><br>
+                    <a class="info" href="">About Us</a><br>
+                    <a class="info" href="">Careers</a><br>
+                    <a class="info" href="">Sitemap</a><br>
+
+                </div>
+                <div class="column">
+                    <h6>Help &amp; FAQs</h6><br>
+                    <a class="info" href="">Payment</a><br>
+                    <a class="info" href="">Shipping</a><br>
+                    <a class="info" href="">Returns &amp; Exchanges</a><br>
+                    <a class="info" href="">Contact Us</a><br>
+                    
+                </div>
+                <div class="column">
+                    <h6>Beauty Offers</h6><br>
+                    <a class="info" href="">Weekly Offers</a><br>
+                    <a class="info" href="">15% Student Discount</a><br>
+                </div>
+                <div class="column">
+                    <h6>Follow Us</h6><br>
+                    <img class="media_icons" src="icons/facebook.png">
+                    <img class="media_icons" src="icons/twitter-logo-silhouette.png">
+                    <img class="media_icons" src="icons/instagram.png">
+                    <h6>Join our Mailing List!</h6>
+					<div class="join_mailinglist_container">
+						<input class="join_mailinglist" type="text" placeholder="Email address">
+						<button class="join_btn" type="submit">join</button>
+					</div>
+                </div>
+                <hr>
+            </div>
+
+        </footer>
+		
+			<!--------- scripts --------->
+			<script type="text/javascript" src="layout.js"></script>
+			<script type="text/javascript" src="cart.js"></script>
+			<script type="text/javascript" src="wishlist.js"></script>
+       
+    </body>
+
+</html>
