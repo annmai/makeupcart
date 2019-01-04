@@ -77,7 +77,7 @@ function addToCart(btn) {
 			<div class="cart_item" data-pid="${pid}">
                 <img class="cart_item_img" src="${product.img_src}">
                 <h7>${product.brand}</h7>
-                <h10 data-pid="${pid}">
+                <h10 data-pid="${pid}" onclick="showSelectQtyBox(${pid})">
                     <p class="qty">qty ${product_qty}</p>
                     <i class="qty_in_cart_carrot" onclick="showSelectQtyBox(${pid})"></i>
                     <select class="edit_qty_box" onchange="updateQty(this.value, ${pid})">

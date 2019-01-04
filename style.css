@@ -165,6 +165,7 @@ h10 {
 	color: gray;
 	text-transform: uppercase;
     margin-right: 5px;
+	cursor: pointer;
 }
 
 h11 {
