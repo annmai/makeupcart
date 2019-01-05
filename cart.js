@@ -15,7 +15,7 @@ function Product(pid, brand, name, price) {
 
 var productsDOM = document.querySelectorAll('.product');
 
-//Build catalog with products' information and default qty_in_cart to 0.
+// Build catalog with products' information and default qty_in_cart to 0.
 let catalogArray = []; 
 productsDOM.forEach(productDOM => {
     var pid = productDOM.getAttribute('data-pid');
@@ -38,6 +38,7 @@ catalogArray[7].img_src = "product_images/kvdpowder.png";
 
 // ------ Cart functions ------
 
+let cart = [];
 var total_num_items = 0;
 var subtotal = 0;
 var cartDOM = document.querySelector('.cart_content_bubble');
@@ -52,8 +53,7 @@ function addToCart(btn) {
 	// if cart is empty clear innerHTML, but keep close cart button
     if(total_num_items == 0) {
         cartDOM.innerHTML = "";
-		closeCartBtnHTML();
-       
+		closeCartBtnHTML();  
     }
 
 	// update product catalog with the product's current 
@@ -61,6 +61,9 @@ function addToCart(btn) {
 	var product = catalogArray[pid - 1];
     var product_qty = product.qty_in_cart;
 	catalogArray[pid - 1].qty_in_cart = ++product_qty;
+	
+	// add product to cart array
+	addToCartArray(catalogArray[pid - 1]);
 	
 	// adds price of product to current subtotal
 	subtotal = subtotal + parseInt(product.price, 10);
@@ -146,6 +149,26 @@ function addToCart(btn) {
 	setTimeout(function () { resetAddToCartBttn(btn); }, 1000);
 };
 
+// adds product to cart array without duplicating objects
+function addToCartArray(product) {
+	
+	var i;
+	for(i = 0; i < cart.length; ++i) {
+		
+		var pid = cart[i].pid;
+		
+		// if the item already exists in the cart array
+		// overwrite old product state with new product state
+		if(pid === product.pid) {
+			cart[i] = product;
+			return;
+		}	
+	}
+	
+	// add product to cart array
+	cart.push(product);
+}
+
 // show cart bubble
 function displayCart() {
     cartDOM.style.display = 'block';
@@ -223,8 +246,7 @@ function removeFromCart(pid) {
 	for(i = 0; i < cartItemDOM.length; ++i) {
 		var item_pid = cartItemDOM[i].getAttribute('data-pid');
 
-		// if product id of item to be removed is equal to pid of cart_item
-		// remove that product from cartDOM
+		// remove product with matching pid from cartDOM
 		if(parseInt(item_pid) === pid) {
 			cartDOM.removeChild(cartItemDOM[i]);
 			
@@ -233,9 +255,12 @@ function removeFromCart(pid) {
 			subtotal = subtotal - (qty * parseInt(item_price));
 			var newSubTotal = subtotal.toFixed(2);
 			
-			// reset qty_in_cart to 0
+			// reset qty_in_cart to 0 
 			catalogArray[pid - 1].qty_in_cart = 0;
-            
+			
+			// removes product from cart array
+			cart = cart.filter(cartItem => cartItem.pid != pid);
+			
             updateCartHeight();
 				
 			// update subtotal on screen
@@ -295,7 +320,10 @@ function updateQty(newQty, pid) {
             var product = catalogArray[pid - 1];
             var price = product.price;
             var oldQty = product.qty_in_cart;
-            product.qty_in_cart = newQty;
+            catalogArray[pid - 1].qty_in_cart = newQty;
+			
+			// add to cart array updated product
+			addToCartArray(catalogArray[pid - 1]);
             
             // update total number of items in cart
             total_num_items -= parseInt(oldQty);
