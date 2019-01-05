@@ -77,7 +77,7 @@ function addToCart(btn) {
 			<div class="cart_item" data-pid="${pid}">
                 <img class="cart_item_img" src="${product.img_src}">
                 <h7>${product.brand}</h7>
-                <h10 data-pid="${pid}" onclick="showSelectQtyBox(${pid})">
+                <h10 data-pid="${pid}">
                     <p class="qty">qty ${product_qty}</p>
                     <i class="qty_in_cart_carrot" onclick="showSelectQtyBox(${pid})"></i>
                     <select class="edit_qty_box" onchange="updateQty(this.value, ${pid})">
@@ -156,16 +156,21 @@ function hideCart() {
 	cartDOM.style.display = 'none';
     
     // must also make sure qty select box gets closed if it is opened
-    var editQtyDOM = document.querySelector('.edit_qty_box');
-    if(editQtyDOM != null) {
-        editQtyDOM.style.display = 'none';    
-    }
+    var editQtysDOM = document.querySelectorAll('.edit_qty_box');
+	editQtysDOM.forEach(editQtyDOM => {
+		if(editQtyDOM != null) {
+			editQtyDOM.style.display = 'none';    
+		}
+	});
 
     // and item qty must be toggled back to displayed
-    var qtyDOM = document.querySelector('.qty');
-    if(qtyDOM != null) {
-        qtyDOM.style.display = 'block';    
-    }
+    var qtysDOM = document.querySelectorAll('.qty');
+	qtysDOM.forEach(qtyDOM => {
+		if(qtyDOM != null) {
+			qtyDOM.style.display = 'block';    
+		}
+	});
+	
 }
 
 // toggles between showing and hiding the cart bubble
@@ -303,8 +308,9 @@ function updateQty(newQty, pid) {
             var newSubTotal = subtotal.toFixed(2);
             document.querySelector('h11').innerHTML = "Subtotal: $" + newSubTotal;
 
-            
-            qtyDOM.style.display = 'block';
+            var itemQtySelectBoxDOM = cartItemsQtyDOM[i].querySelector('.edit_qty_box');
+            itemQtySelectBoxDOM.style.display = 'none';
+			qtyDOM.style.display = 'block';
             
             if(newQty > 9) {
                 qtyDOM.style.width = '40px';
@@ -312,9 +318,7 @@ function updateQty(newQty, pid) {
             else {
                 qtyDOM.style.width = '35px';
             }
-            
-            var itemQtySelectBoxDOM = cartItemsQtyDOM[i].querySelector('.edit_qty_box');
-            itemQtySelectBoxDOM.style.display = 'none';
+             
             break;
         }
     }
