@@ -1,4 +1,4 @@
-# javascript_makeupcart
+# Makeup Cart
 ![alt text](http://33secondstomars.org/ann/projects/screenshots/makeup_cart.jpg)
 
 A faux shopping website featuring makeup products written in Javascript, HTML, and CSS. Other tools used: Photoshop, Brackets, Notepad++
